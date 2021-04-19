@@ -1,7 +1,7 @@
 import { useRef } from "react";
 
 import Head from "next/head";
-import DynamicText from "../components/DynamicText";
+import DynamicText from "components/DynamicText";
 import { Box, Flex } from "@chakra-ui/layout";
 import { Input } from "@chakra-ui/react";
 
