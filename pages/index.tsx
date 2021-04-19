@@ -1,11 +1,14 @@
+import { useRef } from "react";
+
 import Head from "next/head";
 import DynamicText from "../components/DynamicText";
 import { Box, Flex } from "@chakra-ui/layout";
 import { Input } from "@chakra-ui/react";
 
 const Home = () => {
+  const inputRef = useRef(null);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    inputRef.current.callChangeValue(e.target.value);
   };
 
   return (
@@ -17,7 +20,7 @@ const Home = () => {
       <Flex direction="column" justifyContent="center" alignItems="center" minH="100vh">
         <Flex flex="1" direction="column" justifyContent="center" alignItems="center" padding="5rem 0">
           <Box>
-            <DynamicText />
+            <DynamicText ref={inputRef} />
           </Box>
           <Box>
             <Input size="md" onChange={onChange} />
