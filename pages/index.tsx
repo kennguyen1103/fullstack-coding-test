@@ -1,6 +1,7 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import DynamicText from "../components/DynamicText";
+import { Box, Flex } from "@chakra-ui/layout";
+import { Input } from "@chakra-ui/react";
 
 const Home = () => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -8,17 +9,22 @@ const Home = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Coding Test</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <DynamicText />
-        <input onChange={onChange} />
-      </main>
-    </div>
+      <Flex direction="column" justifyContent="center" alignItems="center" minH="100vh">
+        <Flex flex="1" direction="column" justifyContent="center" alignItems="center" padding="5rem 0">
+          <Box>
+            <DynamicText />
+          </Box>
+          <Box>
+            <Input size="md" onChange={onChange} />
+          </Box>
+        </Flex>
+      </Flex>
+    </>
   );
 };
 
