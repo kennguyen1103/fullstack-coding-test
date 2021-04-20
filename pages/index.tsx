@@ -5,6 +5,8 @@ import DynamicText from "components/DynamicText";
 import { Box, Flex } from "@chakra-ui/layout";
 import { Input } from "@chakra-ui/react";
 
+import withAuth from "hoc/withAuth";
+
 const Home = () => {
   const inputRef = useRef(null);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,4 +33,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withAuth(Home);

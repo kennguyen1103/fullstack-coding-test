@@ -24,15 +24,15 @@ https://fullstack-coding-test-nguyenlenam.vercel.app/
 
 ## Test 2 (Frontend)
 
-- Integrate firebase authentication with React Context that provides the auth state of the user globally in any component.
-- Create a sign up and sign in page that integrates with firebase authentication.
-- `pages/index.tsx` should be a protected route and only accessible after user has signed in or created an account.
-- Create a new page `pages/blog.tsx`.
-- Within this new page, develop a UI that will display multiple blog card, each representing a blog article.
-- Each blog card should consist of a image and title.
-- When a blog card is clicked, a modal should pop up displaying the content of the article.
-- All blog data should be stored on [Firebase firestore](https://firebase.google.com/docs/firestore).
-- The blog card listing and articles should update in real time using the Firebase JS SDK.
+- Integrate firebase authentication with React Context that provides the auth state of the user globally in any component. - Done
+- Create a sign up and sign in page that integrates with firebase authentication. - Done
+- `pages/index.tsx` should be a protected route and only accessible after user has signed in or created an account. - Done
+- Create a new page `pages/blog.tsx`. - done
+- Within this new page, develop a UI that will display multiple blog card, each representing a blog article. - done
+- Each blog card should consist of a image and title. - done
+- When a blog card is clicked, a modal should pop up displaying the content of the article.-done
+- All blog data should be stored on [Firebase firestore](https://firebase.google.com/docs/firestore).-done
+- The blog card listing and articles should update in real time using the Firebase JS SDK. - done
 
 ## Test 3 (Fullstack/Backend)
 
