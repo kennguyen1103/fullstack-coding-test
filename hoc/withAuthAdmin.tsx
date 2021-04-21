@@ -1,17 +1,17 @@
 import { useAuth } from "../hooks/use-auth";
 import { useRouter } from "next/router";
 
-const withAuth = (Component) => {
+const withAuthAdmin = (Component) => {
   const Auth = (props) => {
     const router = useRouter();
     const { user } = useAuth();
 
-    if (!user) {
+    if (user && user.user && user.user.isAdmin) {
+      return <Component {...props} />;
+    } else {
       router.push("/auth/login");
       return null;
     }
-
-    return <Component {...props} />;
   };
 
   if (Component.getInitialProps) {
@@ -21,4 +21,4 @@ const withAuth = (Component) => {
   return Auth;
 };
 
-export default withAuth;
+export default withAuthAdmin;

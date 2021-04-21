@@ -2,6 +2,7 @@ import { useState, useEffect, useContext, createContext } from "react";
 import useLocalStorage from "./use-localstorage";
 
 import { auth } from "loaders/firebase";
+import axios from "axios";
 
 const authContext = createContext();
 
@@ -12,28 +13,26 @@ export const useAuth = () => {
 function useProvideAuth() {
   const [user, setUser] = useLocalStorage("firebase-auth", null);
 
-  const signin = (email, password) => {
-    return auth
-      .signInWithEmailAndPassword(email, password)
-      .then((response) => {
-        setUser(response.user);
-        return { user: response.user };
-      })
-      .catch((e) => {
-        return { error: e };
-      });
+  const signin = async (email, password, name, dob) => {
+    try {
+      const res = await auth.signInWithEmailAndPassword(email, password);
+      const token = await auth.currentUser.getIdTokenResult();
+      setUser({ user: { uid: res.user.uid, email: res.user.email, isAdmin: token.claims.admin } });
+
+      return { user: { uid: res.user.uid, email: res.user.email, isAdmin: token.claims.admin } };
+    } catch (e) {
+      return { error: e };
+    }
   };
 
-  const signup = (email, password) => {
-    return auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        setUser(response.user);
-        return { user: response.user };
-      })
-      .catch((e) => {
-        return { error: e };
-      });
+  const signup = async (email, password, name, dob) => {
+    try {
+      const res = await axios.post("http://localhost:4000/api/profile", { email, password, name, dob });
+
+      return res.data;
+    } catch (e) {
+      return { error: e };
+    }
   };
 
   const signout = () => {
@@ -52,18 +51,6 @@ function useProvideAuth() {
       return true;
     });
   };
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(false);
-      }
-    });
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
-  }, []);
 
   return {
     user,

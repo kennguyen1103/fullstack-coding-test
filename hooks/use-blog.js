@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react";
+import axios from "axios";
 
 import { db } from "loaders/firebase";
 
@@ -15,7 +16,9 @@ const useProvidedBlogs = () => {
     const fetchBlogs = async () => {
       const response = db.collection("Blogs");
       const data = await response.get();
-      const blogsData = data.docs.map((item) => item.data());
+      const blogsData = data.docs.map((item) => {
+        return { id: item.id, ...item.data() };
+      });
 
       setBlogs(blogsData);
     };
@@ -27,7 +30,37 @@ const useProvidedBlogs = () => {
     });
   }, []);
 
-  return { blogs };
+  const deleteBlog = async (id) => {
+    try {
+      const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/blog/${id}`, null);
+
+      return res.data;
+    } catch (e) {
+      return { error: e };
+    }
+  };
+
+  const createBlog = async (data) => {
+    try {
+      const res = await axios.post(`http://localhost:4000/api/blog`, data);
+
+      return res.data;
+    } catch (e) {
+      return { error: e };
+    }
+  };
+
+  const updateBlog = async (data) => {
+    try {
+      const res = await axios.put(`http://localhost:4000/api/blog`, data);
+
+      return res.data;
+    } catch (e) {
+      return { error: e };
+    }
+  };
+
+  return { blogs, deleteBlog, createBlog, updateBlog };
 };
 
 export const BlogsProvider = ({ children }) => {

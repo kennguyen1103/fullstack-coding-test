@@ -10,9 +10,9 @@ const Signup = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    const { email, password } = event.target.elements;
+    const { email, password, name, dob } = event.target.elements;
 
-    const { user, error } = await auth.signup(email.value, password.value);
+    const { user, error } = await auth.signup(email.value, password.value, name.value, dob.value);
 
     if (user) router.push("/");
     if (error) alert(error);
@@ -33,6 +33,14 @@ const Signup = () => {
             <FormControl mt={6}>
               <FormLabel>Password</FormLabel>
               <Input type="password" placeholder="*******" name="password" />
+            </FormControl>
+            <FormControl mt={6}>
+              <FormLabel>Name</FormLabel>
+              <Input type="text" name="name" />
+            </FormControl>
+            <FormControl mt={6}>
+              <FormLabel>DOB</FormLabel>
+              <Input type="date" name="dob" />
             </FormControl>
             <Button width="full" mt={4} type="submit">
               Sign Up
