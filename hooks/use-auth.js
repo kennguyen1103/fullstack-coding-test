@@ -27,7 +27,12 @@ function useProvideAuth() {
 
   const signup = async (email, password, name, dob) => {
     try {
-      const res = await axios.post("http://localhost:4000/api/profile", { email, password, name, dob });
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/profile`, {
+        email,
+        password,
+        name,
+        dob,
+      });
 
       return res.data;
     } catch (e) {
