@@ -30,7 +30,7 @@ const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCreate, setIsOpenCreate] = useState(false);
   const [current, setCurrent] = useState(null);
-  const [newOne, setNewOne] = useState({});
+  const [newOne, setNewOne] = useState({ title: "", content: "", url: "" });
 
   const onClose = () => setIsOpen(false);
 
